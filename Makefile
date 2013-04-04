@@ -9,11 +9,9 @@ DBGFLAGS = -g
 ## Lex Definitions
 LEXC = scanner.c ##generated scanner
 LEXH = scanner.h ##generated header
-LEXT = table ##table file
 LEXR = rules.flex ##rules file
 LEXDBG = --debug
-LEXFLAGS = --outfile=$(LEXC) --header-file=$(LEXH) \
-	--tables-file=$(LEXT)
+LEXFLAGS = --outfile=$(LEXC) --header-file=$(LEXH)
 
 ## Srcs and objs definition
 SRCS = $(LEXC) $(MONGEC)
@@ -28,7 +26,7 @@ all: $(OBJS)
 
 clean:
 	rm $(OUT) *.o
-	rm $(LEXT) $(LEXH) $(LEXC)
+	rm $(LEXH) $(LEXC)
 
 $(LEXC): $(LEXR)
 	flex $(LEXFLAGS) $(LEXR)
