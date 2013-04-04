@@ -1,7 +1,54 @@
-Monge: a Monga 07 compiler
+**Monge: a Monga 07 compiler**
 Uses flex
-Uses byacc or bison, your call)
+Uses byacc or bison, your call (in future)
 
-Grammar definition:
+**To-do**
+* write flex rules file
+* add some example monga codes
+* incorporate debug in rules
+* add test unit
+
+**Grammar definition used:**
+programa : {declaracao}
+declaracao : dec-variavel | dec-funcao
+dec-variavel : tipo lista-nomes ';'
+lista-nomes : ID { ',' ID }
+tipo : tipo-base | tipo '[' ']'
+tipo-base : 'int' | 'char' | 'float'
+dec-funcao : tipo-retorno ID '(' parametros ')' bloco
+tipo-retorno : tipo | 'void'
+parametros : /* vazio */ | parametro { ',' parametro }
+parametro : tipo ID
+bloco : '{' { dec-variavel } { comando } '}'
+comando : 'if' '(' exp ')' comando parte-else
+        | 'while' '(' exp ')' comando
+        | var '=' exp ';'
+        | 'return' [ exp ] ';'
+        | chamada ';'
+	| bloco
+parte-else : /* vazio */ | 'else' comando
+var : ID | var '[' exp ']'
+exp : NUMERAL | LITERAL
+	| var
+	| '(' exp ')'
+	| chamada
+	| 'new' tipo '[' exp ']'
+	| '-' exp
+	| exp '+' exp
+	| exp '-' exp
+	| exp '*' exp
+	| exp '/' exp
+	| exp '==' exp
+	| exp '<=' exp
+	| exp '>=' exp
+	| exp '<' exp
+	| exp '>' exp
+	| '!' exp
+	| exp '&&' exp
+	| exp '||' exp
+chamada : ID '(' lista-exp ')'
+lista-exp : /* vazio */ | exp { ',' exp }
+
+(directly from: http://www.inf.puc-rio.br/~roberto/comp/lang.html)
 
 
