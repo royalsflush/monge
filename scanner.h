@@ -201,8 +201,6 @@ void *yyalloc (yy_size_t  );
 void *yyrealloc (void *,yy_size_t  );
 void yyfree (void *  );
 
-/* Begin user sect3 */
-
 extern int yylineno;
 
 extern char *yytext;
@@ -459,9 +457,8 @@ extern int yylex (void);
 #undef YY_DECL
 #endif
 
-#line 12 "rules.flex"
+#line 46 "rules.flex"
 
-
-#line 466 "scanner.h"
+#line 463 "scanner.h"
 #undef yyIN_HEADER
 #endif /* yyHEADER_H */

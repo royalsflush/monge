@@ -333,8 +333,6 @@ void yyfree (void *  );
 
 #define YY_AT_BOL() (YY_CURRENT_BUFFER_LVALUE->yy_at_bol)
 
-/* Begin user sect3 */
-
 typedef unsigned char YY_CHAR;
 
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
@@ -394,13 +392,22 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "rules.flex"
-/* definitions */
+/* Definitions part */
 /* Reserved words:
 	char float int void
 	if else while
 	new return
 */
-#line 404 "scanner.c"
+/* Punctuation and delimiters 
+	; { } ( ) [ ]
+*/
+/* Operators logical, comparison
+ and  arithmetic 
+	+ - * /
+	== <= >= < >
+	! && ||
+*/
+#line 411 "scanner.c"
 
 #define INITIAL 0
 
@@ -762,9 +769,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 10 "rules.flex"
+#line 44 "rules.flex"
 
-#line 768 "scanner.c"
+#line 775 "scanner.c"
 
 	if ( !(yy_init) )
 		{
@@ -849,15 +856,15 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "rules.flex"
+#line 45 "rules.flex"
 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "rules.flex"
+#line 46 "rules.flex"
 ECHO;
 	YY_BREAK
-#line 861 "scanner.c"
+#line 868 "scanner.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2310,8 +2317,4 @@ int yytables_destroy (void)
 
 /* end table serialization code definitions */
 
-#line 12 "rules.flex"
-
-
-extra code
-
+#line 46 "rules.flex"
