@@ -41,5 +41,6 @@ DEL_RSQBRACK ']'
 	! && ||
 */
 
+
 %%
-rules
+[\n \t] /* ignore newlines, spaces and tabs */ 

@@ -2,6 +2,7 @@
 OUT = monge
 CC = gcc
 CFLAGS = -ansi -pedantic -Wall -Wshadow
+LIBLEX = -lfl
 MONGEC = monge.c
 
 ## Lex Definitions
@@ -19,7 +20,7 @@ OBJS = $(SRCS:.c=.o)
 ## Rules themselves
 
 all: $(OBJS)
-	$(CC) $(CFLAGS) -o $(OUT) $^
+	$(CC) $(CFLAGS) -o $(OUT) $^ $(LIBLEX)
 
 clean:
 	rm $(OUT) *.o
