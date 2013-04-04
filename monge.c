@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <ctype.h>
+#include "scanner.h"
 
 int main(int argc, char ** argv) {
-	printf("Hi there!\n");
+	yylex();	
 	return 0;
 }

@@ -43,4 +43,4 @@ DEL_RSQBRACK ']'
 
 
 %%
-[\n \t] /* ignore newlines, spaces and tabs */ 
+[*] {ECHO;}
