@@ -359,8 +359,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 1
-#define YY_END_OF_BUFFER 2
+#define YY_NUM_RULES 3
+#define YY_END_OF_BUFFER 4
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -368,18 +368,18 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[6] =
+static yyconst flex_int16_t yy_accept[8] =
     {   0,
-        0,    0,    2,    1,    0
+        0,    0,    4,    3,    1,    2,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
     {   0,
+        1,    1,    1,    1,    1,    1,    1,    1,    2,    2,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    3,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -405,29 +405,29 @@ static yyconst flex_int32_t yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst flex_int32_t yy_meta[2] =
+static yyconst flex_int32_t yy_meta[4] =
     {   0,
-        1
+        1,    1,    1
     } ;
 
-static yyconst flex_int16_t yy_base[7] =
+static yyconst flex_int16_t yy_base[8] =
     {   0,
-        0,    0,    2,    3,    3,    0
+        0,    0,    4,    5,    5,    5,    5
     } ;
 
-static yyconst flex_int16_t yy_def[7] =
+static yyconst flex_int16_t yy_def[8] =
     {   0,
-        6,    6,    5,    5,    0,    5
+        7,    1,    7,    7,    7,    7,    0
     } ;
 
-static yyconst flex_int16_t yy_nxt[5] =
+static yyconst flex_int16_t yy_nxt[9] =
     {   0,
-        4,    5,    3,    5
+        4,    5,    6,    7,    3,    7,    7,    7
     } ;
 
-static yyconst flex_int16_t yy_chk[5] =
+static yyconst flex_int16_t yy_chk[9] =
     {   0,
-        6,    3,    5,    5
+        1,    1,    1,    3,    7,    7,    7,    7
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -445,7 +445,22 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "rules.flex"
-#line 449 "scanner.c"
+/* Definitions part */
+/* Reserved words:
+	char float int void
+	if else while
+	new return
+*/
+/* Punctuation and delimiters 
+	; { } ( ) [ ]
+*/
+/* Operators logical, comparison
+ and  arithmetic 
+	+ - * /
+	== <= >= < >
+	! && ||
+*/
+#line 464 "scanner.c"
 
 #define INITIAL 0
 
@@ -627,9 +642,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 1 "rules.flex"
+#line 45 "rules.flex"
 
-#line 633 "scanner.c"
+#line 648 "scanner.c"
 
 	if ( !(yy_init) )
 		{
@@ -682,13 +697,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 6 )
+				if ( yy_current_state >= 8 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 3 );
+		while ( yy_base[yy_current_state] != 5 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -713,11 +728,22 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
+/* rule 1 can match eol */
 YY_RULE_SETUP
-#line 2 "rules.flex"
+#line 46 "rules.flex"
+/* ignore blanks */
+	YY_BREAK
+case 2:
+YY_RULE_SETUP
+#line 47 "rules.flex"
+{ECHO;}
+	YY_BREAK
+case 3:
+YY_RULE_SETUP
+#line 48 "rules.flex"
 ECHO;
 	YY_BREAK
-#line 721 "scanner.c"
+#line 747 "scanner.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1009,7 +1035,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 6 )
+			if ( yy_current_state >= 8 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1037,11 +1063,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 6 )
+		if ( yy_current_state >= 8 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 5);
+	yy_is_jam = (yy_current_state == 7);
 
 	return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1714,4 +1740,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 2 "rules.flex"
+#line 48 "rules.flex"
