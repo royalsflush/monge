@@ -1,0 +1,17 @@
+int f(int p, float _ds, char Hk) {
+	int a,c,d;
+	d=0;
+	return 5;
+}
+
+void main() {
+	float y;
+	y=0.8;
+	f(7,89.,'y');
+
+	/* its something */
+
+	if (5<6) {
+		
+	}
+}
