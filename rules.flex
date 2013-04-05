@@ -62,17 +62,14 @@ INV_CHAR [^_a-zA-Z<>=&|!+]
 INV_NOT_OPENED_COMMENT "*/"
 
 %%
-{RW_CHAR} addToken(yytext, NULL);
-{RW_FLOAT} addToken(yytext, NULL);
-{RW_INT} addToken(yytext, NULL);
+({RW_CHAR}|{RW_FLOAT}|{RW_INT}) addToken(yytext, NULL);
 {RW_VOID} addToken(yytext, NULL);
 
-{RW_IF} addToken(yytext, NULL); 
-{RW_ELSE} addToken(yytext, NULL);
-{RW_WHILE} addToken(yytext, NULL);
+({RW_IF}|{RW_ELSE}|{RW_WHILE}) addToken(yytext, NULL);
 
-{RW_NEW} addToken(yytext, NULL);
-{RW_RETURN} addToken(yytext, NULL);
+({RW_NEW}|{RW_RETURN}) addToken(yytext, NULL);
+
+({PC_SEMICOLON}|{PC_COMMA}) addToken(yytext, NULL);
 
 ({RM_BLANKS}|{RM_COMMENT}) blank(yytext);
 {NUM_INT} addToken("int", yytext);
