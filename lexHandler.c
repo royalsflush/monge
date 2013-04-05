@@ -35,6 +35,11 @@ void nestedComment() {
 	exit(1);
 }
 
+void invalidChar(const char* c) {
+	fprintf(stderr, "MONGe error:%d: Stray \'%s\' in the programme\n", linec, c);
+	exit(1);
+}
+
 void addToken(const char* type, const char* content) {
 	addNode(gList(), type, content);
 } 

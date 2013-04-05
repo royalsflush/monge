@@ -54,28 +54,30 @@ NUM_FLOAT -?(([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))
 RM_COMMENT "/*"[^"*/""/*"]*"*/"
 
 /* IDs */
-ID [a-zA-z][a-zA-Z0-9]
+ID [_a-zA-z][a-zA-Z0-9_]{0,63}
 
 /* Invalids */
 INV_NESTED_COMMENT "/*"[^"*/"]*"/*"
+INV_CHAR [^_a-zA-Z<>=&|!+]
 
 %%
-{RW_CHAR} addToken("CHAR_RW", yytext);
-{RW_FLOAT} {printf("FLOAT RW\n");}
-{RW_INT} {printf("INT RW\n");}
-{RW_VOID} {printf("VOID RW\n");}
+{RW_CHAR} addToken(yytext, NULL);
+{RW_FLOAT} addToken(yytext, NULL);
+{RW_INT} addToken(yytext, NULL);
+{RW_VOID} addToken(yytext, NULL);
 
-{RW_IF} {printf("IF RW\n");}
-{RW_ELSE} {printf("ELSE RW\n");}
-{RW_WHILE} {printf("WHILE RW\n");}
+{RW_IF} addToken(yytext, NULL); 
+{RW_ELSE} addToken(yytext, NULL);
+{RW_WHILE} addToken(yytext, NULL);
 
-{RW_NEW} {printf("NEW RW\n");}
-{RW_RETURN} {printf("RETURN RW\n");}
+{RW_NEW} addToken(yytext, NULL);
+{RW_RETURN} addToken(yytext, NULL);
 
 ({RM_BLANKS}|{RM_COMMENT}) blank(yytext);
-{NUM_INT} {printf("INT: %s\n", yytext);}
-{NUM_FLOAT} printf("FLOAT: %s\n", yytext);
+{NUM_INT} addToken("int", yytext);
+{NUM_FLOAT} addToken ("float", yytext);
 
 {ID} printf("ID: %s\n", yytext);
 
 {INV_NESTED_COMMENT} nestedComment();
+{INV_CHAR} invalidChar(yytext);

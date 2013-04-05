@@ -15,14 +15,22 @@ tkListNode* createNode(const char* type, const char* content, tkListNode* next) 
 	tkListNode* nn = malloc(sizeof(tkListNode));
 	assert(nn!=NULL);	
 
-	nn->type=malloc(sizeof(char)*(strlen(type)+1));
-	assert(nn->type!=NULL);
-	strcpy(nn->type, type);
+	if (type) {
+		nn->type=malloc(sizeof(char)*(strlen(type)+1));
+		assert(nn->type!=NULL);
+		strcpy(nn->type, type);
+	}
+	else
+		nn->type=NULL;
 
-	nn->content=malloc(sizeof(char)*(strlen(content)+1));
-	assert(nn->content!=NULL);
-	strcpy(nn->content, content);
-	
+	if (content) {
+		nn->content=malloc(sizeof(char)*(strlen(content)+1));
+		assert(nn->content!=NULL);
+		strcpy(nn->content, content);
+	}	
+	else
+		nn->content=NULL;
+
 	nn->next=next;
 	return nn;
 }
@@ -85,7 +93,13 @@ void printList(tkList* l) {
 	pt=l->begin;
 
 	while (pt) {
-		printf("type: %s - content: %s\n", pt->type, pt->content);
+		assert(pt->type!=NULL);
+		printf("type: %s", pt->type);
+
+		if (pt->content)
+			printf(" - content: %s", pt->content);
+		printf("\n");
+		
 		pt=pt->next;
 	}
 }
