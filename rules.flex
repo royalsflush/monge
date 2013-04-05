@@ -42,6 +42,12 @@ DEL_RSQBRACK ']'
 */
 
 
+/* Variables and removables */
+BLANKS [ \n\t\f\r]*
+NUM_INT -?[0-9]+
+NUM_FLOAT -?(([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))
+
 %%
-[\n \t] /* ignore blanks */
-[*] {ECHO;}
+{BLANKS} {/* ignore them! */}
+{NUM_INT} {printf("INT: %s\n", yytext);}
+{NUM_FLOAT} printf("FLOAT: %s\n", yytext);
