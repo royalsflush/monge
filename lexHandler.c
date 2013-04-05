@@ -35,6 +35,10 @@ void blank(const char* t) {
 		if (t[i]=='\n') linec++;
 }
 
+void addToken(const char* type, const char* content) {
+	addNode(gList(), type, content);
+}
+
 void nestedComment() {
 	fprintf(stderr, "MONGe error:%d: MONGA 07 does not allow nested comments\n", linec);
 	errc++;
@@ -43,10 +47,6 @@ void nestedComment() {
 void invalidChar(const char* c) {
 	fprintf(stderr, "MONGe error:%d: Stray \'%s\' in the programme\n", linec, c);
 	errc++;
-}
-
-void addToken(const char* type, const char* content) {
-	addNode(gList(), type, content);
 }
 
 void notOpenedComment() {

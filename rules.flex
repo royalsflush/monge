@@ -5,6 +5,7 @@
 
 /* Definitions part */
 BLANK [ \n\t\f\r]
+OPS [<=>\*\+/-!&\|]
 
 /* Punctuation and delimiters 
 	; { } ( ) [ ]
@@ -13,20 +14,23 @@ BLANK [ \n\t\f\r]
 PC_SEMICOLON ;
 PC_COMMA ,
 
-DEL_LBRACKET {
-DEL_RBRACKET }
+DEL_SINGQT ' 
+DEL_LBRACE \{
+DEL_RBRACE \}
 
-DEL_LPAREN (
-DEL_RPAREN )
+DEL_LPAREN \(
+DEL_RPAREN \)
 
-DEL_LSQBRACK [
-DEL_RSQBRACK ]
+DEL_LBRACKET \[
+DEL_RBRACKET ]
 
 /* Numbers, literals and removables */
 RM_BLANKS {BLANK}+
 NUM_INT -?[0-9]+
 NUM_FLOAT -?(([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))
 RM_COMMENT "/*"[^"*/""/*"]*"*/"
+
+LIT '.'
 
 /* IDs */
 ID [_a-zA-z][a-zA-Z0-9_]{0,63}
@@ -61,7 +65,22 @@ RW_RETURN "return"
 	! && ||
 */
 
+ASSIGN =
 
+ARITH_PLUS \+
+ARITH_MINUS -
+ARITH_TIMES \*
+ARITH_DIV \/
+
+COMP_EQ ==
+COMP_LEQ <=
+COMP_GEQ >=
+COMP_LT <
+COMP_GT >
+
+LOG_NOT !
+LOG_AND &&
+LOG_OR \|\|
 
 %%
 {RW_CHAR}			|
@@ -78,6 +97,31 @@ RW_RETURN "return"
 
 {PC_SEMICOLON}			|
 {PC_COMMA}			addToken(yytext, NULL);
+
+{DEL_SINGQT}			|
+{DEL_LPAREN}			|
+{DEL_RPAREN}			|
+{DEL_LBRACKET}			|
+{DEL_RBRACKET}			|
+{DEL_LBRACE}			|
+{DEL_RBRACE}			addToken(yytext, NULL);
+
+{ASSIGN}			addToken(yytext, NULL);
+
+{ARITH_PLUS}			|
+{ARITH_MINUS}			|
+{ARITH_TIMES}			|
+{ARITH_DIV}			addToken(yytext, NULL);
+
+{COMP_EQ}			|
+{COMP_LEQ}			|
+{COMP_GEQ}			|
+{COMP_LT}			|
+{COMP_GT}			addToken(yytext, NULL);
+
+{LOG_NOT}			|
+{LOG_AND}			|
+{LOG_OR}			addToken(yytext, NULL);
 
 {RM_BLANKS}			blank(yytext);
 {RM_COMMENT}			/* ignore comments */
