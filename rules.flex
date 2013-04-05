@@ -59,6 +59,7 @@ ID [_a-zA-z][a-zA-Z0-9_]{0,63}
 /* Invalids */
 INV_NESTED_COMMENT "/*"[^"*/"]*"/*"
 INV_CHAR [^_a-zA-Z<>=&|!+]
+INV_NOT_OPENED_COMMENT "*/"
 
 %%
 {RW_CHAR} addToken(yytext, NULL);
@@ -75,9 +76,10 @@ INV_CHAR [^_a-zA-Z<>=&|!+]
 
 ({RM_BLANKS}|{RM_COMMENT}) blank(yytext);
 {NUM_INT} addToken("int", yytext);
-{NUM_FLOAT} addToken ("float", yytext);
+{NUM_FLOAT} addToken("float", yytext);
 
-{ID} printf("ID: %s\n", yytext);
+{ID} addToken("id", yytext);
 
 {INV_NESTED_COMMENT} nestedComment();
 {INV_CHAR} invalidChar(yytext);
+{INV_NOT_OPENED_COMMENT} notOpenedComment();

@@ -6,6 +6,7 @@
 #include "tkList.h"
 
 static unsigned int linec=0;
+static unsigned int errc=0;
 
 void fileTokenizer(const char* filename) {
 	FILE* in=fopen(filename,"r");
@@ -16,11 +17,15 @@ void fileTokenizer(const char* filename) {
 	}
 
 	emptyList(gList());
+	linec=errc=0;
 
 	yyin=in;
 	yylex();
-	
-	printList(gList());
+
+	if (!errc) 	
+		printList(gList());
+	else
+		fprintf(stderr,"** MONGe compilation error\n");
 }
 
 void blank(const char* t) {
@@ -32,14 +37,19 @@ void blank(const char* t) {
 
 void nestedComment() {
 	fprintf(stderr, "MONGe error:%d: MONGA 07 does not allow nested	comments\n", linec);
-	exit(1);
+	errc++;
 }
 
 void invalidChar(const char* c) {
 	fprintf(stderr, "MONGe error:%d: Stray \'%s\' in the programme\n", linec, c);
-	exit(1);
+	errc++;
 }
 
 void addToken(const char* type, const char* content) {
 	addNode(gList(), type, content);
-} 
+}
+
+void notOpenedComment() {
+	fprintf(stderr, "MONGe error:%d: Can\'t match end of comment\n", linec);	
+	errc++;
+}
