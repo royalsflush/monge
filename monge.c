@@ -7,10 +7,21 @@
 #define ERR_NO_INPUT 1
 #define ERR_INPUT_CANT_BE_OPENED 2
 
+void testFile(const char* filename) {
+	FILE* in=fopen(filename,"r");
+
+	if (!in) {
+		fprintf(stderr, "MONGe error: Can\'t open input file\n");
+		exit(ERR_INPUT_CANT_BE_OPENED);
+	}
+
+	yyin=in;
+	yylex();
+}
+
 int main(int argc, char* argv[]) {
 	char* filename=NULL;
 	int i;
-	FILE* in=NULL;
 
 	for (i=1; i<argc; i++)
 		if (argv[i][0]!='-') {
@@ -23,14 +34,6 @@ int main(int argc, char* argv[]) {
 		return ERR_NO_INPUT;
 	}
 	
-	in=fopen(filename,"r");
-
-	if (!in) {
-		fprintf(stderr, "MONGe error: Can\'t open input file\n");
-		return ERR_INPUT_CANT_BE_OPENED;
-	}
-
-	yyin=in;
-	yylex();
+	testFile(filename);
 	return 0;
 }
