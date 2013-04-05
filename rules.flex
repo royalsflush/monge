@@ -14,7 +14,6 @@ OPS [<=>\*\+/-!&\|]
 PC_SEMICOLON ;
 PC_COMMA ,
 
-DEL_SINGQT ' 
 DEL_LBRACE \{
 DEL_RBRACE \}
 
@@ -98,7 +97,6 @@ LOG_OR \|\|
 {PC_SEMICOLON}			|
 {PC_COMMA}			addToken(yytext, NULL);
 
-{DEL_SINGQT}			|
 {DEL_LPAREN}			|
 {DEL_RPAREN}			|
 {DEL_LBRACKET}			|
@@ -128,6 +126,7 @@ LOG_OR \|\|
 
 {NUM_INT}			addToken("int", yytext);
 {NUM_FLOAT}			addToken("float", yytext);
+{LIT}				addToken("char", yytext);
 
 {ID}				addToken("id", yytext);
 
