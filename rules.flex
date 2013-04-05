@@ -1,3 +1,8 @@
+/* Headers */
+%{
+	#include "tkList.h"
+%}
+
 /* Definitions part */
 
 /* Reserved words:
@@ -42,12 +47,30 @@ DEL_RSQBRACK ']'
 */
 
 
-/* Variables and removables */
-BLANKS [ \n\t\f\r]*
+/* Numbers, literals and removables */
+RM_BLANKS [ \n\t\f\r]*
 NUM_INT -?[0-9]+
 NUM_FLOAT -?(([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))
+RM_COMMENT "/*"[^"*/""/*"]*"*/"
+
+/* IDs */
+ID [a-zA-z][a-zA-Z0-9]
 
 %%
-{BLANKS} {/* ignore them! */}
+{RW_CHAR} {printf("CHAR RW\n");}
+{RW_FLOAT} {printf("FLOAT RW\n");}
+{RW_INT} {printf("INT RW\n");}
+{RW_VOID} {printf("VOID RW\n");}
+
+{RW_IF} {printf("IF RW\n");}
+{RW_ELSE} {printf("ELSE RW\n");}
+{RW_WHILE} {printf("WHILE RW\n");}
+
+{RW_NEW} {printf("NEW RW\n");}
+{RW_RETURN} {printf("RETURN RW\n");}
+
+({RM_BLANKS}|{RM_COMMENT}) {/* ignore them! */}
 {NUM_INT} {printf("INT: %s\n", yytext);}
 {NUM_FLOAT} printf("FLOAT: %s\n", yytext);
+
+{ID} printf("ID: %s\n", yytext);

@@ -309,7 +309,7 @@ extern int yylex (void);
 #undef YY_DECL
 #endif
 
-#line 54 "rules.flex"
+#line 77 "rules.flex"
 
 #line 315 "scanner.h"
 #undef yyIN_HEADER
