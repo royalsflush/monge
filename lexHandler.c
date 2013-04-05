@@ -36,7 +36,7 @@ void blank(const char* t) {
 }
 
 void nestedComment() {
-	fprintf(stderr, "MONGe error:%d: MONGA 07 does not allow nested	comments\n", linec);
+	fprintf(stderr, "MONGe error:%d: MONGA 07 does not allow nested comments\n", linec);
 	errc++;
 }
 

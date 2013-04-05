@@ -4,6 +4,37 @@
 %}
 
 /* Definitions part */
+BLANK [ \n\t\f\r]
+
+/* Punctuation and delimiters 
+	; { } ( ) [ ]
+*/
+
+PC_SEMICOLON ;
+PC_COMMA ,
+
+DEL_LBRACKET {
+DEL_RBRACKET }
+
+DEL_LPAREN (
+DEL_RPAREN )
+
+DEL_LSQBRACK [
+DEL_RSQBRACK ]
+
+/* Numbers, literals and removables */
+RM_BLANKS {BLANK}+
+NUM_INT -?[0-9]+
+NUM_FLOAT -?(([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))
+RM_COMMENT "/*"[^"*/""/*"]*"*/"
+
+/* IDs */
+ID [_a-zA-z][a-zA-Z0-9_]{0,63}
+
+/* Invalids */
+INV_NESTED_COMMENT "/*"[^"*/"]*"/*"
+INV_CHAR [^_a-zA-Z<>=&\|\{\};,\(\)']
+INV_NOT_OPENED_COMMENT "*/"
 
 /* Reserved words:
 	char float int void
@@ -23,22 +54,6 @@ RW_WHILE "while"
 RW_NEW "new"
 RW_RETURN "return"
 
-/* Punctuation and delimiters 
-	; { } ( ) [ ]
-*/
-
-PC_SEMICOLON ';'
-PC_COMMA ','
-
-DEL_LBRACKET '{'
-DEL_RBRACKET '}'
-
-DEL_LPAREN '('
-DEL_RPAREN ')'
-
-DEL_LSQBRACK '['
-DEL_RSQBRACK ']'
-
 /* Operators logical, comparison
  and  arithmetic 
 	+ - * /
@@ -47,36 +62,31 @@ DEL_RSQBRACK ']'
 */
 
 
-/* Numbers, literals and removables */
-RM_BLANKS [ \n\t\f\r]*
-NUM_INT -?[0-9]+
-NUM_FLOAT -?(([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))
-RM_COMMENT "/*"[^"*/""/*"]*"*/"
-
-/* IDs */
-ID [_a-zA-z][a-zA-Z0-9_]{0,63}
-
-/* Invalids */
-INV_NESTED_COMMENT "/*"[^"*/"]*"/*"
-INV_CHAR [^_a-zA-Z<>=&|!+]
-INV_NOT_OPENED_COMMENT "*/"
 
 %%
-({RW_CHAR}|{RW_FLOAT}|{RW_INT}) addToken(yytext, NULL);
-{RW_VOID} addToken(yytext, NULL);
+{RW_CHAR}			|
+{RW_FLOAT}			|
+{RW_INT} 			|
+{RW_VOID} 			addToken(yytext, NULL);
 
-({RW_IF}|{RW_ELSE}|{RW_WHILE}) addToken(yytext, NULL);
+{RW_IF}				|
+{RW_ELSE}			|
+{RW_WHILE} 			addToken(yytext, NULL);
 
-({RW_NEW}|{RW_RETURN}) addToken(yytext, NULL);
+{RW_NEW}			|
+{RW_RETURN}			addToken(yytext, NULL);
 
-({PC_SEMICOLON}|{PC_COMMA}) addToken(yytext, NULL);
+{PC_SEMICOLON}			|
+{PC_COMMA}			addToken(yytext, NULL);
 
-({RM_BLANKS}|{RM_COMMENT}) blank(yytext);
-{NUM_INT} addToken("int", yytext);
-{NUM_FLOAT} addToken("float", yytext);
+{RM_BLANKS}			blank(yytext);
+{RM_COMMENT}			/* ignore comments */
 
-{ID} addToken("id", yytext);
+{NUM_INT}			addToken("int", yytext);
+{NUM_FLOAT}			addToken("float", yytext);
 
-{INV_NESTED_COMMENT} nestedComment();
-{INV_CHAR} invalidChar(yytext);
-{INV_NOT_OPENED_COMMENT} notOpenedComment();
+{ID}				addToken("id", yytext);
+
+{INV_NESTED_COMMENT}		nestedComment();
+{INV_CHAR}			invalidChar(yytext);
+{INV_NOT_OPENED_COMMENT}	notOpenedComment();
