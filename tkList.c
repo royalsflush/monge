@@ -21,7 +21,7 @@ tkListNode* createNode(const char* type, const char* content, tkListNode* next) 
 
 	nn->content=malloc(sizeof(char)*(strlen(content)+1));
 	assert(nn->content!=NULL);
-	strcpy(nn->type, content);
+	strcpy(nn->content, content);
 	
 	nn->next=next;
 	return nn;
@@ -48,7 +48,7 @@ tkList* createList() {
 	return nl;
 }
 
-void addToken(tkList* l, const char* type, const char* content) {
+void addNode(tkList* l, const char* type, const char* content) {
 	tkListNode* nn = createNode(type, content, NULL);
 	
 	assert(l!=NULL);
@@ -93,5 +93,7 @@ void printList(tkList* l) {
 static tkList* globList=NULL;
 
 tkList* gList() {
+	if (!globList)
+		globList=createList();
 	return globList;
 }

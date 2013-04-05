@@ -13,7 +13,7 @@ LEXDBG = --debug
 LEXFLAGS = --outfile=$(LEXC) --header-file=$(LEXH)
 
 ## Srcs and objs definition
-SRCS = $(LEXC) $(MONGEC) tkList.c
+SRCS = $(LEXC) $(MONGEC) tkList.c lexHandler.c
 OBJS = $(SRCS:.c=.o)
 
 .PHONY: all test debug lex parser setdbg

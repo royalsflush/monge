@@ -2,22 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "scanner.h"
-
-#define ERR_NO_INPUT 1
-#define ERR_INPUT_CANT_BE_OPENED 2
-
-void testFile(const char* filename) {
-	FILE* in=fopen(filename,"r");
-
-	if (!in) {
-		fprintf(stderr, "MONGe error: Can\'t open input file\n");
-		exit(ERR_INPUT_CANT_BE_OPENED);
-	}
-
-	yyin=in;
-	yylex();
-}
+#include "lexHandler.h"
 
 int main(int argc, char* argv[]) {
 	char* filename=NULL;
@@ -31,9 +16,9 @@ int main(int argc, char* argv[]) {
 
 	if (!filename) {
 		fprintf(stderr, "MONGe error: no input file\n");
-		return ERR_NO_INPUT;
+		exit(1);
 	}
 	
-	testFile(filename);
+	fileTokenizer(filename);
 	return 0;
 }

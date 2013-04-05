@@ -1,6 +1,6 @@
 /* Headers */
 %{
-	#include "tkList.h"
+	#include "lexHandler.h"
 %}
 
 /* Definitions part */
@@ -56,8 +56,11 @@ RM_COMMENT "/*"[^"*/""/*"]*"*/"
 /* IDs */
 ID [a-zA-z][a-zA-Z0-9]
 
+/* Invalids */
+INV_NESTED_COMMENT "/*"[^"*/"]*"/*"
+
 %%
-{RW_CHAR} {printf("CHAR RW\n");}
+{RW_CHAR} addToken("CHAR_RW", yytext);
 {RW_FLOAT} {printf("FLOAT RW\n");}
 {RW_INT} {printf("INT RW\n");}
 {RW_VOID} {printf("VOID RW\n");}
@@ -69,8 +72,10 @@ ID [a-zA-z][a-zA-Z0-9]
 {RW_NEW} {printf("NEW RW\n");}
 {RW_RETURN} {printf("RETURN RW\n");}
 
-({RM_BLANKS}|{RM_COMMENT}) {/* ignore them! */}
+({RM_BLANKS}|{RM_COMMENT}) blank(yytext);
 {NUM_INT} {printf("INT: %s\n", yytext);}
 {NUM_FLOAT} printf("FLOAT: %s\n", yytext);
 
 {ID} printf("ID: %s\n", yytext);
+
+{INV_NESTED_COMMENT} nestedComment();
