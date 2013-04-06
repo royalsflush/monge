@@ -1,16 +1,10 @@
 /* Headers */
 %{
-	#include <stdio.h>
 	#include "lexHandler.h"
-	
-	void addAndUnputLast(const char* type, const char* content);
 %}
 
 /* Definitions part */
 BLANK [ \n\t\f\r]
-BINOPS [<=>\*\+/-&\|]
-UNOPS [-\+!]
-RES_WORD ("if"|"else"|"while"|"char"|"float"|"int"|"void"|"new"|"return")
 
 /* Punctuation and delimiters 
 	; { } ( ) [ ]

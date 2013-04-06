@@ -2,12 +2,6 @@
 Uses flex
 Uses byacc or bison, your call (in future)
 
-**To-do**
-* write flex rules file
-* add some example monga codes
-* incorporate debug in rules
-* add test unit
-
 **Grammar definition used:**
 programa : {declaracao}
 declaracao : dec-variavel | dec-funcao

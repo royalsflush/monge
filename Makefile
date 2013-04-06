@@ -16,6 +16,18 @@ LEXFLAGS = --outfile=$(LEXC) --header-file=$(LEXH)
 SRCS = $(LEXC) $(MONGEC) tkList.c lexHandler.c
 OBJS = $(SRCS:.c=.o)
 
+## Tests
+TSTDIR = test
+TST = $(TSTDIR)/comm.lext \
+	$(TSTDIR)/ifelse.lext \
+	$(TSTDIR)/idtest.lext \
+	$(TSTDIR)/rw.lext \
+	$(TSTDIR)/nums.lext \
+	$(TSTDIR)/lit.lext \
+	$(TSTDIR)/prog.lext \
+	$(TSTDIR)/validchars.lext \
+GABS = $(TST:.lext=.gab)
+
 .PHONY: all test debug lex parser setdbg
 
 ## Rules themselves
@@ -34,7 +46,10 @@ $(OBJS): %.o: %.c
 $(LEXC): $(LEXR)
 	flex $(LEXFLAGS) $(LEXR)
 
-test:
+test: $(GABS)
+$(GABS): %.gab: %.lext
+	$(OUT) $< > $@
+
 debug: setdbg | all
 
 parser:
