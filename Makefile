@@ -28,7 +28,7 @@ TST = $(TSTDIR)/comm.lext \
 	$(TSTDIR)/validchars.lext
 GABS = $(TST:.lext=.gab)
 
-.PHONY: all test debug lex parser setdbg
+.PHONY: all test debug lex parser setdbg cleantest
 
 ## Rules themselves
 
@@ -46,13 +46,14 @@ $(OBJS): %.o: %.c
 $(LEXC): $(LEXR)
 	flex $(LEXFLAGS) $(LEXR)
 
-test: $(GABS)
-	echo $(GABS)
+test: cleantest | $(GABS)
+cleantest:
+	rm -f $(TSTDIR)/*.gab
 
 $(GABS): %.gab: %.lext
 	./$(OUT) $< > $@
 
-debug: setdbg | all
+debug: setdbg clean | all
 
 parser:
 setdbg:

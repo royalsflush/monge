@@ -24,8 +24,8 @@ DEL_RBRACKET ]
 
 /* Numbers, literals and removables */
 RM_BLANKS {BLANK}+
-NUM_INT -?[0-9]+
-NUM_FLOAT -?(([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))
+NUM_INT [0-9]+
+NUM_FLOAT (([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))
 RM_COMMENT "/*"[^"*/""/*"]*"*/"
 
 LIT '.'
