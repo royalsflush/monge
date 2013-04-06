@@ -17,7 +17,7 @@ SRCS = $(LEXC) $(MONGEC) tkList.c lexHandler.c
 OBJS = $(SRCS:.c=.o)
 
 ## Tests
-TSTDIR = test
+TSTDIR = tests
 TST = $(TSTDIR)/comm.lext \
 	$(TSTDIR)/ifelse.lext \
 	$(TSTDIR)/idtest.lext \
@@ -25,7 +25,7 @@ TST = $(TSTDIR)/comm.lext \
 	$(TSTDIR)/nums.lext \
 	$(TSTDIR)/lit.lext \
 	$(TSTDIR)/prog.lext \
-	$(TSTDIR)/validchars.lext \
+	$(TSTDIR)/validchars.lext
 GABS = $(TST:.lext=.gab)
 
 .PHONY: all test debug lex parser setdbg
@@ -47,8 +47,10 @@ $(LEXC): $(LEXR)
 	flex $(LEXFLAGS) $(LEXR)
 
 test: $(GABS)
+	echo $(GABS)
+
 $(GABS): %.gab: %.lext
-	$(OUT) $< > $@
+	./$(OUT) $< > $@
 
 debug: setdbg | all
 

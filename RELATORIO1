@@ -28,6 +28,10 @@ No caso de erro de compilação, a lista de tokens não é impressa na tela – 
 Detalhes de implementação:
 * o ID é definido exatamente como em C, podendo começar com um _, uma maiúscula ou uma minúscula e ter [0,n] caracteres subsequentes que podem ser _, maiúscula, minúscula ou dígito
 * os floats, assim como em C, podem não ter o zero antes ou depois do ponto – por exemplo, 9.0 pode ser escrito como 9. e 0.8 pode ser escrito como .8
-* não foi implementada notação científica para os floats, mas é previsto
-* as regras de following não estão sendo consideradas, então else+ (do arquivo ifelse.lext), é parseado como um "else" e um "+" - isso será tratado na versão seguinte
-* No makefile tem um phony de test vazio – um módulo de teste automatizado era previsto, mas não foi concluído a tempo, logo não consta no trabalho
+* não foi implementada notação científica para os floats, mas é previsto para o próximo trabalho
+* as regras de following não estão sendo consideradas, então else+ (do arquivo ifelse.lext), é parseado como um "else" e um "+" - isso será tratado na versão seguinte (com o yacc)
+
+Para atualizar os testes, use make test – dois deles, o validchars.lext e o idtest.lext vão dar erro de compilação, porque foi necessário testar se a expressão estava produzindo algo inesperado, que imprime o log de erros em stderr. Os outros gerarão o arquivo com a lista de tokens impressa, no formato type: ... {- content: (só aplicável para ids)}. Compilando em modo debug, o arquivo também contém as regras que foram usadas para cada expressão.
+
+O código está versionado em: https://github.com/royalsflush/monge
+E pode ser clonado diretamente de: git://github.com/royalsflush/monge.git (versão read-only)
