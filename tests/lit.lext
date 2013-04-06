@@ -1,0 +1,5 @@
+char y='y';
+char d='^';
+
+char g=y+d;
+'u' '#' '?' '<''K'

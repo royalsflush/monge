@@ -1,11 +1,16 @@
 /* Headers */
 %{
+	#include <stdio.h>
 	#include "lexHandler.h"
+	
+	void addAndUnputLast(const char* type, const char* content);
 %}
 
 /* Definitions part */
 BLANK [ \n\t\f\r]
-OPS [<=>\*\+/-!&\|]
+BINOPS [<=>\*\+/-&\|]
+UNOPS [-\+!]
+RES_WORD ("if"|"else"|"while"|"char"|"float"|"int"|"void"|"new"|"return")
 
 /* Punctuation and delimiters 
 	; { } ( ) [ ]
@@ -32,11 +37,11 @@ RM_COMMENT "/*"[^"*/""/*"]*"*/"
 LIT '.'
 
 /* IDs */
-ID [_a-zA-z][a-zA-Z0-9_]{0,63}
+ID [_a-zA-Z][a-zA-Z0-9_]*
 
 /* Invalids */
 INV_NESTED_COMMENT "/*"[^"*/"]*"/*"
-INV_CHAR [^_a-zA-Z<>=&\|\{\};,\(\)']
+INV_CHAR [^_a-zA-Z0-9<>=&!\|\{\};,\(\)'\[\]\.\\]
 INV_NOT_OPENED_COMMENT "*/"
 
 /* Reserved words:
@@ -50,9 +55,7 @@ RW_FLOAT "float"
 RW_INT "int"
 RW_VOID "void"
 
-RW_IF "if"
-RW_ELSE "else"
-RW_WHILE "while"
+RW_COMM ("if"|"else"|"while")
 
 RW_NEW "new"
 RW_RETURN "return"
@@ -87,9 +90,7 @@ LOG_OR \|\|
 {RW_INT} 			|
 {RW_VOID} 			addToken(yytext, NULL);
 
-{RW_IF}				|
-{RW_ELSE}			|
-{RW_WHILE} 			addToken(yytext, NULL);
+{RW_COMM} 			addToken(yytext, NULL);
 
 {RW_NEW}			|
 {RW_RETURN}			addToken(yytext, NULL);
