@@ -1,0 +1,33 @@
+** Relatorio 1: analisador léxico **
+Luiza de Noronha e Silva	0810905
+
+Nesse trabalho, foi implementado o analisador léxico de MONGA 07, de acordo com a especificação da linguagem encontrada no site (que foi copiada para o README por conveniência).
+O trabalho foi todo implementado em ANSI C.
+
+O trabalho é dividido em quatro módulos:
+* o scanner.{c,h}, que é o código gerado automaticamente a partir do arquivo rules.flex
+* o lexHandler.{c,h}, que é o módulo que lida com os callbacks do flex (a não ser quando são necessárias MACROS tipo unput)
+* o tkList.{c,h}, que é simplesmente uma lista encadeada para armazenar os tokens
+* o monge.c, que é a main do compilador, onde ele pega o argumento de command line que corresponde ao arquivo de entrada e coloca como input.
+
+Para compilar o source, é necessário GNU make, flex e gcc. Daí, existem duas opções:
+make /* compila o source para produção */
+make debug /* compila o source com as informações de debug tanto do gdb quanto do próprio flex */
+
+Note que existe também um make clean, se for necessário recompilar tudo.
+
+Para rodar o programa, use ./monge nome_do_arquivo. Caso você esqueça de colocar o nome do arquivo, o compilador dará um erro; o mesmo acontecerá se o arquivo não puder ser lido.
+
+Na pasta tests, existem vários exemplos que o compilador foi testado com, alguns inclusive cunhados para dar erros. O MONGe exibe três tipos de erros:
+1. Erro de nested comments - comentários não podem vir dentro de comentários; aliás, /* não pode anteceder /* sem antes vir um */
+2. Erro de comentário não aberto - caso apareça um */ sem ser precedido de /*. Ambos os casos são ilustrados no comm.lext
+3. Erro de caractere invalido - alguns caracteres, como '^' e '`' só aparecem em MONGA quando dentro de uma literal - o compilador detecta esses casos e dá um erro
+
+No caso de erro de compilação, a lista de tokens não é impressa na tela – em vez, é mostrada uma lista de erros com suas respectivas linhas.
+
+Detalhes de implementação:
+* o ID é definido exatamente como em C, podendo começar com um _, uma maiúscula ou uma minúscula e ter [0,n] caracteres subsequentes que podem ser _, maiúscula, minúscula ou dígito
+* os floats, assim como em C, podem não ter o zero antes ou depois do ponto – por exemplo, 9.0 pode ser escrito como 9. e 0.8 pode ser escrito como .8
+* não foi implementada notação científica para os floats, mas é previsto
+* as regras de following não estão sendo consideradas, então else+ (do arquivo ifelse.lext), é parseado como um "else" e um "+" - isso será tratado na versão seguinte
+* No makefile tem um phony de test vazio – um módulo de teste automatizado era previsto, mas não foi concluído a tempo, logo não consta no trabalho
